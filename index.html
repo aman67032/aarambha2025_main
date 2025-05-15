@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assests/favicon.png" sizes="any">
+    <link rel="stylesheet" href="style.css">
+    <title>Aarambha'25</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="assests/JKLU-Logo-with-NAAC-tagline-Gradient-Colour-Reverse (1).png" alt="Logo" />
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#speakers">SPEAKERS</a></li>
+            <li><a href="#team">TEAM</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#highlights">HIGHLIGHTS</a></li>
+            <li><a href="#schedule">DOWNLOAD SCHEDULE</a></li>
+        </ul>
+    </div>
+    <div class="hero-section">
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="assests/video/sample_video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="overlay"></div>
+        
+        <h1>Aarambha 2025</h1>
+
+        <div class="hero-text">
+            <div class="jklu-brand">JK Lakshmipat University presents</div>
+            
+            <div class="mentoring-dreams">
+                <span class="mentoring">MENTORING</span>
+                <span class="dreams">DREAMS</span>
+                </div>
+
+                <div class="date-badge">
+                <i class="far fa-calendar-alt"></i>
+                <span>July 25 - July 31, 2025</span>
+            </div>
+
+            <h3>ORIENTATION PROGRAMME</h3>
+
+            <div class="tagline-container">
+            <p class="tagline">Gear up for an experience that will transform you!</p>
+    </div>
+  </div>
+</div>
+<div class = "space"></div>
+<div class="about-section">
+    <h2>About Aarambha</h2>
+    <p>Aarambha is a week-long orientation program designed to help students transition into university life. It includes workshops, guest lectures, and networking opportunities.</p>
+</div>
+<div class="Hightlights">
+    <h1>Highlights</h1>
+    <p>Experience the best of Aarambha 2024 with our curated highlights. From engaging workshops to inspiring guest lectures, we have something for everyone!</p>
+
+
+    <div class="highlight-category">
+        <h3>Workshops on various topics</h3>
+        <div class="video-row">
+            <video src="assests/video/workshop.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/workshop2.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/workshop3.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/workshop4.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+        </div>
+    </div>
+
+    <div class="highlight-category">
+        <h3>Some Intresting Activity</h3>
+        <div class="video-row">
+            <video src="assests/video/guest1.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/guest2.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/guest3.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/guest4.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+        </div>
+    </div>
+
+    <div class="highlight-category">
+        <h3>Networking opportunities with peers and faculty</h3>
+        <div class="video-row">
+            <video src="assests/video/network1.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/network2.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/network3.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/netwrok4.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+        </div>
+    </div>
+
+    <div class="highlight-category">
+        <h3>Fun activities and team-building exercises</h3>
+        <div class="video-row">
+            <video src="assests/video/fun1.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/fun2.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/fun3.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+            <video src="assests/video/fun4.mp4" muted autoplay loop playsinline onclick="openPopup(this.src)"></video>
+        </div>
+    </div>
+</div>
+
+<!-- Video Popup -->
+<div id="videoPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <video id="popupVideo" controls autoplay></video>
+    </div>
+</div>
+</body>
+<script src="script.js"></script>
+</html>
