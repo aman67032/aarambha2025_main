@@ -1,137 +1,148 @@
 :root {
-    --primary-color: #1A3636;
-    --secondary-color: #40534c;
-    --tertiary-color: #677D67;
-    --quaternary-color: #D6BD98;
+  --primary-color: #1A3636;
+  --secondary-color: #40534c;
+  --tertiary-color: #677D67;
+  --quaternary-color: #D6BD98;
+}
 
-}
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #D6BD98;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #D6BD98;
 }
+
 /* Navbar */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(10px);
-    
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  z-index: 999;
 }
 
 .logo {
-    flex: 1;
+  flex: 1;
 }
 
 .logo img {
-    height: 70px;
-    padding-left: 20px;
-    width: auto;
+  height: 70px;
+  padding-left: 20px;
+  width: auto;
 }
 
 .nav-links {
-    flex: 2;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
+  flex: 2;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links li a {
-    color: white;
-    text-decoration: none;
-    font-family: 'Losta Masta', serif;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    transition: background 0.3s, color 0.3s;
-    border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-family: 'Losta Masta', serif;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s, color 0.3s;
+  border-radius: 8px;
 }
 
 .nav-links li a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
+/* Responsive Navbar for Mobile */
 @media (max-width: 768px) {
-    .nav-links {
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.8);
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 100%;
-        display: none;
-    }
-
-    .navbar.active .nav-links {
-        display: flex;
-    }
-}
-
-@font-face {
-    font-family: 'Losta Masta';
-    src: url('font/Losta Masta/Fontspring-DEMO-lostamasta-regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  .nav-links {
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    display: none;
   }
 
-/* video format */
-.background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 0;
-}
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(69, 44, 8, 0.37); /* semi-transparent black */
-    z-index: 1;
+  .navbar.active .nav-links {
+    display: flex;
+  }
+
+  .logo img {
+    height: 50px;
+    padding-left: 10px;
+  }
+
+  .navbar {
+    padding: 1rem 1rem;
+  }
 }
 
-/* Hero section  */
+/* Font Face */
+@font-face {
+  font-family: 'Losta Masta';
+  src: url('font/Losta Masta/Fontspring-DEMO-lostamasta-regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Video format */
+.highlight-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(69, 44, 8, 0.37); /* semi-transparent */
+  z-index: 1;
+}
+
+/* Hero section */
 .hero-section {
-    height: 100vh;
-    font-size: 100px;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-color);
-    
+  height: 100vh;
+  font-size: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
 }
 
 .hero-section h1 {
-    position: relative;
-    display: flex;
-    z-index: 2;
-    font-size: 100px;
-    color: var(--quaternary-color);
-    padding: 20px;
-    padding-top:40px;
-    text-align: center;
-    font-family: 'Losta Masta', serif;
+  position: relative;
+  display: flex;
+  z-index: 2;
+  font-size: 100px;
+  color: var(--quaternary-color);
+  padding: 20px;
+  padding-top: 40px;
+  text-align: center;
+  font-family: 'Losta Masta', serif;
 }
 
 .hero-text {
   position: relative;
   z-index: 2;
-  font-family:Verdana, Geneva, Tahoma, sans-serif ;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
   color: white;
   margin-top: 0.5rem;
@@ -191,7 +202,7 @@ body, html {
   color: #eee;
 }
 
-/* Optional fade-in animation */
+/* Fade-in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -202,99 +213,220 @@ body, html {
     transform: translateY(0);
   }
 }
+
+/* About section */
 .about-section {
-    background-color:#401c06;
-    color: rgb(255, 253, 253);
-    padding: 100px 20px;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+  background-color: #401c06;
+  color: rgb(255, 253, 253);
+  padding: 100px 20px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Highlights */
 .Hightlights {
-    padding: 60px 40px;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #d6b98c; /* earthy beige */
-    color: #4e3b2c; /* dark brown text */
+  padding: 60px 40px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #d6b98c; /* earthy beige */
+  color: #4e3b2c; /* dark brown text */
 }
 
 .Hightlights h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #5e3e2f; /* earth brown */
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #5e3e2f; /* earth brown */
 }
+
 .Hightlights p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    text-align: center;
-    color: #4e3b2c; /* dark brown text */
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #4e3b2c; /* dark brown text */
 }
+
 .highlight-category {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .highlight-category h3 {
-    font-size: 2rem;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #5e3e2f; /* earth brown */
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #5e3e2f; /* earth brown */
 }
 
 .video-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
 }
 
 .video-row video {
-    width: 180px; /* increased width */
-    aspect-ratio: 9 / 16;
-    border-radius: 14px;
-    cursor: pointer;
-    object-fit: cover;
-    border: 2px solid #a97451; /* warm brown border */
-    box-shadow: 0 4px 12px rgba(90, 60, 30, 0.3);
-    transition: transform 0.3s ease;
+  width: 180px; /* increased width */
+  aspect-ratio: 9 / 16;
+  border-radius: 14px;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #a97451; /* warm brown border */
+  box-shadow: 0 4px 12px rgba(90, 60, 30, 0.3);
+  transition: transform 0.3s ease;
 }
 
 .video-row video:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Popup */
 .popup {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }
 
 .popup-content {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .popup-content video {
-    width: 100%;
-    border-radius: 10px;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    color: #333;
-    cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Loading screen */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(239, 235, 235, 0.5); /* semi-transparent */
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.loading-gif {
+  width: 1000px; /* 5 times bigger */
+  max-width: 90vw; /* responsive on mobile */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Blurred state for main content during loading */
+.blurred {
+  filter: blur(10px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Responsive Adjustments for Mobile and Tablet */
+
+@media (max-width: 1024px) {
+  /* Hero text smaller */
+  .hero-section h1 {
+    font-size: 70px;
+    padding-top: 20px;
+  }
+  .hero-text h3 {
+    font-size: 1.3rem;
+  }
+  .Hightlights h1 {
+    font-size: 2.5rem;
+  }
+  .highlight-category h3 {
+    font-size: 1.7rem;
+  }
+  .video-row video {
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hero section font sizes */
+  .hero-section h1 {
+    font-size: 45px;
+    padding-top: 10px;
+  }
+  .hero-text h3 {
+    font-size: 1.1rem;
+  }
+  .jklu-brand {
+    font-size: 1rem;
+  }
+  .mentoring-dreams {
+    font-size: 1.5rem;
+  }
+  .Hightlights h1 {
+    font-size: 2rem;
+  }
+  .highlight-category h3 {
+    font-size: 1.3rem;
+  }
+  .video-row video {
+    width: 120px;
+  }
+  .about-section {
+    padding: 60px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Small mobile screens */
+  .hero-section h1 {
+    font-size: 30px;
+    padding-top: 5px;
+  }
+  .hero-text h3 {
+    font-size: 1rem;
+  }
+  .jklu-brand {
+    font-size: 0.9rem;
+  }
+  .mentoring-dreams {
+    font-size: 1.2rem;
+  }
+  .Hightlights h1 {
+    font-size: 1.5rem;
+  }
+  .highlight-category h3 {
+    font-size: 1.1rem;
+  }
+  .video-row {
+    gap: 15px;
+  }
+  .video-row video {
+    width: 100px;
+  }
+  .about-section {
+    padding: 40px 10px;
+  }
 }
