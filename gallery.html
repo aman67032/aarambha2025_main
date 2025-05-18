@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assests/favicon.png" sizes="any">
+    <link rel="stylesheet" href="style.css">
+    <title>Gallery - Aarambha'25</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="assests/JKLU-Logo-with-NAAC-tagline-Gradient-Colour-Reverse (1).png" alt="Logo" />
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="index.html#about">ABOUT</a></li>
+            <li><a href="index.html#highlights">HIGHLIGHTS</a></li>
+            <li><a href="index.html#rules">RULES</a></li>
+            <li><a href="index.html#schedule">SCHEDULE</a></li>
+            <li><a href="index.html#speakers">SPEAKERS</a></li>
+            <li><a href="index.html#team">TEAM</a></li>
+        </ul>
+    </div>
+
+    <div class="gallery-page">
+        <h1>Photo Gallery</h1>
+        <p class="gallery-description">Relive the memorable moments from Aarambha through our comprehensive photo collection.</p>
+        
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="workshops">Workshops</button>
+            <button class="filter-btn" data-filter="cultural">Cultural Events</button>
+            <button class="filter-btn" data-filter="sports">Sports</button>
+        </div>
+
+        <div class="full-gallery-grid">
+            <!-- Workshop Images -->
+            <div class="gallery-item" data-category="workshops">
+                <img src="assests/Images/photo1.jpg" alt="Workshop Session 1" loading="lazy">
+            </div>
+            <div class="gallery-item" data-category="workshops">
+                <img src="assests/Images/photo2.jpeg" alt="Workshop Session 2" loading="lazy">
+            </div>
+            
+            <!-- Cultural Event Images -->
+            <div class="gallery-item" data-category="cultural">
+                <img src="assests/Images/photo3.jpg" alt="Cultural Performance 1" loading="lazy">
+            </div>
+            <div class="gallery-item" data-category="cultural">
+                <img src="assests/Images/photo4.jpg" alt="Cultural Performance 2" loading="lazy">
+            </div>
+            
+            <!-- Sports Images -->
+            <div class="gallery-item" data-category="sports">
+                <img src="assests/Images/photo5.jpg" alt="Sports Event 1" loading="lazy">
+            </div>
+            <div class="gallery-item" data-category="sports">
+                <img src="assests/Images/photo6.jpg" alt="Sports Event 2" loading="lazy">
+            </div>
+            
+            <!-- Add more images following the same pattern -->
+            <div class="gallery-item" data-category="workshops">
+                <img src="assests/Images/photo7.jpg" alt="Workshop Session 3" loading="lazy">
+            </div>
+            <div class="gallery-item" data-category="cultural">
+                <img src="assests/Images/photo8.jpg" alt="Cultural Performance 3" loading="lazy">
+            </div>
+            <div class="gallery-item" data-category="sports">
+                <img src="assests/Images/photo9.jpg" alt="Sports Event 3" loading="lazy">
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged gallery image">
+    </div>
+
+    <script>
+        // Gallery filtering
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+                
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter gallery items
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.style.display = 'flex';
+            });
+        });
+
+        document.querySelector('.close-lightbox').addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

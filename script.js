@@ -224,3 +224,44 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+window.onload = () => {
+  const gallery = document.querySelector(".gallery-grid");
+  const images = Array.from(gallery.children);
+
+  // Clone all images to allow infinite scroll
+  images.forEach((img) => {
+    const clone = img.cloneNode(true);
+    gallery.appendChild(clone);
+  });
+};
+
+function updateCountdown() {
+    const targetDate = new Date('July 25, 2025 00:00:00').getTime();
+    
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+        if (distance < 0) {
+            clearInterval(timerInterval);
+            document.querySelector('.countdown').innerHTML = '<h2>Event Started!</h2>';
+        }
+    };
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+}
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', updateCountdown);
