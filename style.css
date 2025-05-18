@@ -52,6 +52,7 @@ body, html {
   font-family: 'Losta Masta', serif;
   font-weight: 500;
   padding: 0.5rem 1rem;
+  
   transition: background 0.3s, color 0.3s;
   border-radius: 8px;
 }
@@ -91,6 +92,12 @@ body, html {
 @font-face {
   font-family: 'Losta Masta';
   src: url('font/Losta Masta/Fontspring-DEMO-lostamasta-regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Calora';
+  src: url('font/calora-font/calora.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -222,6 +229,11 @@ body, html {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
 }
+.about-section h2 {
+  font-size: 3rem;
+  font-family: 'calora', sans-serif;
+  margin-bottom: 20px;
+}
 
 /* Highlights */
 .Hightlights {
@@ -235,6 +247,7 @@ body, html {
   font-size: 3rem;
   margin-bottom: 20px;
   text-align: center;
+  font-family: 'calora', sans-serif;
   color: #5e3e2f; /* earth brown */
 }
 
@@ -430,3 +443,208 @@ body, html {
     padding: 40px 10px;
   }
 }
+
+.rules-section {
+  background-color: #7d4b2c;
+  color: rgb(255, 253, 253);
+  padding: 100px 20px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.rules-section h2 {
+  font-size: 3rem;
+  font-family: 'calora', sans-serif;
+  margin-bottom: 20px;
+}
+.rules-section ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1.2rem;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 800px; /* Centered */
+}
+.rules-section li {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #cb8c58; /* earth brown */
+  border-radius: 8px;
+  color: #fff; /* white text */
+}
+.rules-section li:hover {
+  background-color: #7a5b4a; /* lighter brown on hover */
+  cursor: pointer;
+}
+
+
+/* Schedule Section */
+.schedule {
+    padding: 6rem 0;
+    background-color:#7d4b2cc1;
+    
+}
+.schedule h2 {
+    font-size: 3rem;
+    font-family: 'calora', sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff; /* white text */
+}
+
+.schedule-tabs {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tab-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: #fee5da;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 5px;
+    margin: 0 0.5rem;
+    font-weight: 500;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background-color: #9b4e34;
+    color: white;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.schedule-item {
+    display: flex;
+    margin-bottom: 1.5rem;
+    background-color: #dfa37b;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.time {
+    width: 200px;
+    background-color: #573417;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.event-details {
+    flex: 1;
+    padding: 1rem;
+}
+
+.event-details h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.event-details p {
+    color: #7d4b2c;
+}
+
+.schedule .section-button {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.schedule .section-button a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background-color: #461e11;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.schedule .section-button a:hover,
+.schedule .section-button a:focus {
+    background-color: #ba401f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    outline: none;
+}
+.download-button i {
+    margin-right: 0.5rem;
+}
+
+
+
+/* Events Section */
+.events {
+    padding: 6rem 0;
+    background-color: #7d4b2cd6; /* warm brown from rules-section li */
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.events h2 {
+    font-size: 3rem;
+    font-family: 'calora', sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: center;
+    justify-items: center;
+    margin-top: 2rem;
+    padding: 5rem;
+}
+
+.event-card {
+    background-color: #9c5325; /* deep brown for card base */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+    background-color: #c55113; /* hover like rule list item */
+}
+
+.event-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.event-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #fffdfd;
+}
+
+.event-card p {
+    color: #f5f5f5;
+}
+
