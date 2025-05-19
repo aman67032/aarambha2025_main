@@ -877,43 +877,108 @@ body, html {
 
 
 /* Speakers Page Styles */
-.speakers-container {
-    padding: 100px 20px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+
+
+/* Speakers Section Styles */
+.speaker-container {
+    background: #e0a170;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.speaker-container h1 {
+    font-size: 3.5rem;
+    font-family: 'Calora', sans-serif;
+    color: #8b480d;
+    margin-bottom: 20px;
+}
+
+.speaker-container .subtitle {
+    font-size: 1.2rem;
+    color: #5c2c06;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .speakers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .speaker-card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    background: linear-gradient(145deg, #a35a10 0%, #8b480d 100%);
+    border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .speaker-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.speaker-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
 }
 
 .speaker-image img {
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.speaker-card:hover .speaker-image img {
+    transform: scale(1.1);
 }
 
 .speaker-info {
-    padding: 1.5rem;
+    padding: 25px;
+    color: #D6BD98;
 }
 
+.speaker-info h3 {
+    font-size: 1.5rem;
+    font-family: 'Calora', sans-serif;
+    margin-bottom: 10px;
+}
 
+.speaker-info .designation {
+    font-size: 1.1rem;
+    color: #e0a170;
+    margin-bottom: 5px;
+}
 
+.speaker-info .company {
+    font-size: 1rem;
+    color: #D6BD98;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-links a {
+    color: #D6BD98;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #e0a170;
+}
 
 /* Active nav link style */
 .nav-links .active {
@@ -1095,7 +1160,7 @@ body, html {
   color: #333;
   padding: 100px 20px;
   text-align: center;
-  font-family: 'Arial', Helvetica, sans-serif;
+  font-family: 'losta masta', serif;
 }
 
 .team-container h1 {
@@ -1115,7 +1180,7 @@ body, html {
   font-size: 1.2rem;
   font-family: 'Arial', Helvetica, sans-serif;
   margin-bottom: 40px;
-  color: #555;
+  color: #6b5f53;
 }
 
 /* Cohort Title */
