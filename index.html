@@ -7,10 +7,14 @@
 
     <link rel="stylesheet" href="style.css">
      <link rel ="stylesheet" href="visual.css ">
-  
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#1A3636">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Aarambha'25</title>
 </head>
 <body>
@@ -23,13 +27,21 @@
    <img src="assests/Logoanimation.gif" alt="Loading animation" class="loading-gif" />
 </div>
 
-<div id ="main-content" class="blurred">
+<!-- Main Content -->
+  <div id ="main-content" class="blurred">
     <div class="navbar">
         <div class="logo">
             <a href="https://jklu.edu.in">
                 <img src="assests/JKLU-Logo-with-NAAC-tagline-Gradient-Colour-Reverse (1).png" alt="Logo" />
             </a>
         </div>
+          <!-- Add mobile menu toggle button -->
+    <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
         <ul class="nav-links">
             <li><a href="#hero-section">HOME</a></li>
             <li><a href="#highlights">HIGHLIGHTS</a></li>
@@ -37,10 +49,10 @@
             <li><a href="#schedule">SCHEDULE</a></li>
             <li><a href="#rolling-gallery-container">GALLERY</a></li>
             <li><a href="speaker.html">SPEAKERS</a></li>
-            <li><a href="team.html">TEAM</a></li>
-            
+                <li><a href="team.html">TEAM</a></li>
         </ul>
     </div>
+
     <div class="hero-section" id="hero-section">
 
         <video autoplay muted loop playsinline class="highlight-video">
@@ -389,6 +401,12 @@
             <p>&copy; 2025 Aarambha - JK Lakshmipat University. All rights reserved.</p>
         </div>
     </footer>
+        </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
 </body>
 <script src="script.js"></script>
