@@ -276,38 +276,60 @@ document.addEventListener('DOMContentLoaded', updateCountdown);
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Mobile Menu Toggle
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const navbar = document.querySelector('.navbar');
-    
-    if (mobileMenuToggle && navLinks) {
-        mobileMenuToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('mobile-active');
-            mobileMenuToggle.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
+      // Mobile Menu Toggle JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const body = document.body;
+            
+            console.log('Mobile menu toggle:', mobileMenuToggle); // Debug log
+            console.log('Nav links:', navLinks); // Debug log
+            
+            if (mobileMenuToggle && navLinks) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Menu toggle clicked'); // Debug log
+                    
+                    // Toggle classes
+                    navLinks.classList.toggle('mobile-active');
+                    mobileMenuToggle.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+                    
+                    console.log('Menu active:', navLinks.classList.contains('mobile-active')); // Debug log
+                });
 
-        // Close mobile menu when clicking on a link
-        const navLinksItems = document.querySelectorAll('.nav-links a');
-        navLinksItems.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('mobile-active');
-                mobileMenuToggle.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            });
-        });
+                // Close menu when clicking on navigation links
+                const navLinksItems = document.querySelectorAll('.nav-links a');
+                navLinksItems.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('mobile-active');
+                        mobileMenuToggle.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    });
+                });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!navbar.contains(event.target) && navLinks.classList.contains('mobile-active')) {
-                navLinks.classList.remove('mobile-active');
-                mobileMenuToggle.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const navbar = document.querySelector('.navbar');
+                    if (!navbar.contains(event.target) && navLinks.classList.contains('mobile-active')) {
+                        navLinks.classList.remove('mobile-active');
+                        mobileMenuToggle.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    }
+                });
+
+                // Close menu on escape key
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && navLinks.classList.contains('mobile-active')) {
+                        navLinks.classList.remove('mobile-active');
+                        mobileMenuToggle.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    }
+                });
+            } else {
+                console.error('Mobile menu elements not found');
             }
         });
-    }
-
     // Back to Top Button
     const backToTopButton = document.getElementById('backToTop');
     
