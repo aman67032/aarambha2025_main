@@ -39,7 +39,7 @@ function createTunnelRings() {
     for (let ring = 0; ring < 15; ring++) {
         const tunnelRing = document.createElement('div');
         tunnelRing.className = 'tunnel-ring';
-        tunnelRing.style.animationDelay = `${ring * 0.2}s`;
+        tunnelRing.style.animationDelay = `${ring * 0.3}s`;
             
         // Create panels around each ring (octagon shape)
         const panelsPerRing = 8;
