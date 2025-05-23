@@ -19,31 +19,126 @@ function closePopup() {
     popupVideo.src = "";
 }
 
-// LOADING SCREEN FUNCTIONALITY
-window.addEventListener('DOMContentLoaded', () => {
-    const loadingScreen = document.getElementById('loading-screen');
-    const mainContent = document.getElementById('main-content');
-    const backgroundVideos = document.querySelectorAll('.highlight-video');
+ // Particle System
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.init();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
 
-    // Initially pause all background videos
-    backgroundVideos.forEach(video => video.pause());
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
 
-    // Set timeout to match your loading GIF duration (4 seconds)
-    setTimeout(() => {
-        // Hide the loading screen
-        loadingScreen.style.display = 'none';
+            init() {
+                for (let i = 0; i < 100; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        size: Math.random() * 2 + 1,
+                        opacity: Math.random() * 0.5 + 0.2,
+                        color: this.getRandomColor()
+                    });
+                }
+            }
 
-        // Remove blur effect from main content
-        mainContent.classList.remove('blurred');
+            getRandomColor() {
+                const colors = ['#8D0B41', '#D39D55', '#C685A0', '#B35C80', '#E9CEAA'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
 
-        // Play all background videos
-        backgroundVideos.forEach(video => {
-            video.play().catch(e => console.log('Autoplay failed:', e));
+            update() {
+                this.particles.forEach(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+
+                    particle.opacity += (Math.random() - 0.5) * 0.02;
+                    particle.opacity = Math.max(0.1, Math.min(0.8, particle.opacity));
+                });
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw connections
+                this.particles.forEach((particle, i) => {
+                    this.particles.slice(i + 1).forEach(otherParticle => {
+                        const distance = Math.sqrt(
+                            Math.pow(particle.x - otherParticle.x, 2) +
+                            Math.pow(particle.y - otherParticle.y, 2)
+                        );
+                        
+                        if (distance < 100) {
+                            this.ctx.strokeStyle = `rgba(211, 157, 85, ${0.1 * (1 - distance / 100)})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(particle.x, particle.y);
+                            this.ctx.lineTo(otherParticle.x, otherParticle.y);
+                            this.ctx.stroke();
+                        }
+                    });
+                });
+
+                // Draw particles
+                this.particles.forEach(particle => {
+                    this.ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+
+            animate() {
+                this.update();
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize loading animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('particle-canvas');
+            const particleSystem = new ParticleSystem(canvas);
+            particleSystem.animate();
+
+            // Loading sequence
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                const mainContent = document.getElementById('main-content');
+                
+                loadingScreen.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    mainContent.classList.add('show');
+                }, 1500);
+            }, 6500); // Total loading time: 6.5 seconds
         });
 
-    }, 4000); // Adjust this time if your loading animation is longer/shorter
-});
-
+        // Add some interactive effects
+        document.addEventListener('mousemove', (e) => {
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                    element.style.filter = 'hue-rotate(' + (x / rect.width * 360) + 'deg)';
+                }
+            });
+        });
 // Schedule Tabs
     const tabBtns = document.querySelectorAll('.tab-btn');
     
