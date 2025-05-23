@@ -2134,3 +2134,45 @@ body, html {
         font-size: 16px;
     }
 }
+/* Initial visibility states */
+#tunnelContainer {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.8s ease-out;
+}
+
+#tunnelContainer.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#loading-screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+#loading-screen.show {
+    display: flex;
+    opacity: 1;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+}
+
+#main-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#main-content.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Ensure smooth transitions */
+* {
+    transition-timing-function: ease-in-out;
+}

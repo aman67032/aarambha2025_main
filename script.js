@@ -19,100 +19,197 @@ function closePopup() {
     popupVideo.src = "";
 }
 
- // Particle System
-        class ParticleSystem {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.particles = [];
-                this.resize();
-                this.init();
-                
-                window.addEventListener('resize', () => this.resize());
-            }
+// Tunnel Animation Code
+const imageUrls = [
+    'assests/images/photo1.webp',
+    'assests/images/photo2.webp',
+    'assests/images/photo3.webp',
+    'assests/images/photo4.webp',
+    'assests/images/photo5.webp',
+    'assests/images/photo6.webp',
+    'assests/images/photo7.webp',
+    'assests/images/photo8.webp',
+    'assests/images/photo9.webp'
+];
 
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
+function createTunnelRings() {
+    const tunnel = document.getElementById('tunnel');
 
-            init() {
-                for (let i = 0; i < 100; i++) {
-                    this.particles.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height,
-                        vx: (Math.random() - 0.5) * 0.5,
-                        vy: (Math.random() - 0.5) * 0.5,
-                        size: Math.random() * 2 + 1,
-                        opacity: Math.random() * 0.5 + 0.2,
-                        color: this.getRandomColor()
-                    });
-                }
-            }
-
-            getRandomColor() {
-                const colors = ['#8D0B41', '#D39D55', '#C685A0', '#B35C80', '#E9CEAA'];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-
-            update() {
-                this.particles.forEach(particle => {
-                    particle.x += particle.vx;
-                    particle.y += particle.vy;
-
-                    if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-                    if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-
-                    particle.opacity += (Math.random() - 0.5) * 0.02;
-                    particle.opacity = Math.max(0.1, Math.min(0.8, particle.opacity));
-                });
-            }
-
-            draw() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Draw connections
-                this.particles.forEach((particle, i) => {
-                    this.particles.slice(i + 1).forEach(otherParticle => {
-                        const distance = Math.sqrt(
-                            Math.pow(particle.x - otherParticle.x, 2) +
-                            Math.pow(particle.y - otherParticle.y, 2)
-                        );
-                        
-                        if (distance < 100) {
-                            this.ctx.strokeStyle = `rgba(211, 157, 85, ${0.1 * (1 - distance / 100)})`;
-                            this.ctx.lineWidth = 1;
-                            this.ctx.beginPath();
-                            this.ctx.moveTo(particle.x, particle.y);
-                            this.ctx.lineTo(otherParticle.x, otherParticle.y);
-                            this.ctx.stroke();
-                        }
-                    });
-                });
-
-                // Draw particles
-                this.particles.forEach(particle => {
-                    this.ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
-                    this.ctx.beginPath();
-                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                    this.ctx.fill();
-                });
-            }
-
-            animate() {
-                this.update();
-                this.draw();
-                requestAnimationFrame(() => this.animate());
-            }
+    // Create multiple rings of panels
+    for (let ring = 0; ring < 15; ring++) {
+        const tunnelRing = document.createElement('div');
+        tunnelRing.className = 'tunnel-ring';
+        tunnelRing.style.animationDelay = `${ring * 0.2}s`;
+            
+        // Create panels around each ring (octagon shape)
+        const panelsPerRing = 8;
+        const radius = 300;
+        
+        for (let i = 0; i < panelsPerRing; i++) {
+            const panel = document.createElement('div');
+            panel.className = 'tunnel-panel';
+            
+            const angle = (i / panelsPerRing) * Math.PI * 2;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            panel.style.transform = `
+                translate(-50%, -50%) 
+                translate3d(${x}px, ${y}px, ${-ring * 150}px) 
+                rotateY(${angle * 180 / Math.PI}deg)
+            `;
+            
+            // Set random image
+            panel.style.backgroundImage = `url(${imageUrls[Math.floor(Math.random() * imageUrls.length)]})`;
+            
+            tunnelRing.appendChild(panel);
         }
+        
+        tunnel.appendChild(tunnelRing);
+    }
+}
 
-        // Initialize loading animation
-        document.addEventListener('DOMContentLoaded', () => {
+function createParticleSystem() {
+    const particlesContainer = document.getElementById('particles');
+    
+    for (let i = 0; i < 80; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Random size
+        const size = Math.random() * 3 + 1;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random animation delay and duration
+        particle.style.animationDelay = Math.random() * 3 + 's';
+        particle.style.animationDuration = (Math.random() * 1 + 1) + 's';
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Loading Screen Particle System
+class ParticleSystem {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.resize();
+        this.init();
+        
+        window.addEventListener('resize', () => this.resize());
+    }
+
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+
+    init() {
+        for (let i = 0; i < 100; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.5 + 0.2,
+                color: this.getRandomColor()
+            });
+        }
+    }
+
+    getRandomColor() {
+        const colors = ['#8D0B41', '#D39D55', '#C685A0', '#B35C80', '#E9CEAA'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    update() {
+        this.particles.forEach(particle => {
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+
+            if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+            if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+
+            particle.opacity += (Math.random() - 0.5) * 0.02;
+            particle.opacity = Math.max(0.1, Math.min(0.8, particle.opacity));
+        });
+    }
+
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw connections
+        this.particles.forEach((particle, i) => {
+            this.particles.slice(i + 1).forEach(otherParticle => {
+                const distance = Math.sqrt(
+                    Math.pow(particle.x - otherParticle.x, 2) +
+                    Math.pow(particle.y - otherParticle.y, 2)
+                );
+                
+                if (distance < 100) {
+                    this.ctx.strokeStyle = `rgba(211, 157, 85, ${0.1 * (1 - distance / 100)})`;
+                    this.ctx.lineWidth = 1;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(particle.x, particle.y);
+                    this.ctx.lineTo(otherParticle.x, otherParticle.y);
+                    this.ctx.stroke();
+                }
+            });
+        });
+
+        // Draw particles
+        this.particles.forEach(particle => {
+            this.ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            this.ctx.fill();
+        });
+    }
+
+    animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+function startTunnelJourney() {
+    // Clear any existing content
+    document.getElementById('tunnel').innerHTML = '';
+    document.getElementById('particles').innerHTML = '';
+    
+    // Ensure tunnel is visible and loading screen is hidden
+    document.getElementById('tunnelContainer').classList.remove('hide');
+    document.getElementById('loading-screen').classList.remove('show');
+    document.getElementById('main-content').classList.remove('show');
+    
+    // Create tunnel structure
+    createTunnelRings();
+    createParticleSystem();
+    
+    // After 6 seconds, transition to loading screen
+    setTimeout(() => {
+        document.getElementById('tunnelContainer').classList.add('hide');
+        
+        // Small delay for smoother transition, then show loading screen
+        setTimeout(() => {
+            document.getElementById('loading-screen').classList.add('show');
+            
+            // Initialize loading screen particles
             const canvas = document.getElementById('particle-canvas');
-            const particleSystem = new ParticleSystem(canvas);
-            particleSystem.animate();
-
-            // Loading sequence
+            if (canvas) {
+                const particleSystem = new ParticleSystem(canvas);
+                particleSystem.animate();
+            }
+            
+            // After loading screen duration, show main content
             setTimeout(() => {
                 const loadingScreen = document.getElementById('loading-screen');
                 const mainContent = document.getElementById('main-content');
@@ -121,165 +218,145 @@ function closePopup() {
                 
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
+                    loadingScreen.classList.remove('show', 'fade-out');
                     mainContent.classList.add('show');
                 }, 1500);
-            }, 6500); // Total loading time: 6.5 seconds
-        });
+            }, 4000); // Loading screen shows for 4 seconds
+            
+        }, 500);
+    }, 6000);
+}
 
-        // Add some interactive effects
-        document.addEventListener('mousemove', (e) => {
-            const glitchElements = document.querySelectorAll('.glitch');
-            glitchElements.forEach(element => {
-                const rect = element.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-                    element.style.filter = 'hue-rotate(' + (x / rect.width * 360) + 'deg)';
-                }
-            });
-        });
-// Schedule Tabs
-    const tabBtns = document.querySelectorAll('.tab-btn');
+function restartJourney() {
+    // Reset everything
+    const tunnelContainer = document.getElementById('tunnelContainer');
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
     
-    // Initialize schedule data for all days
-    const scheduleData = {
-        day1: [
-            {
-                time: '9:00 AM - 10:30 AM',
-                title: 'Registration & Welcome Kit Distribution',
-                location: 'Main Auditorium'
-            },
-            {
-                time: '11:00 AM - 12:30 PM',
-                title: 'Inaugural Ceremony',
-                location: 'Main Auditorium'
-            },
-            {
-                time: '1:30 PM - 2:30 PM',
-                title: 'Lunch Break',
-                location: 'University Cafeteria'
-            },
-            {
-                time: '3:00 PM - 5:00 PM',
-                title: 'Ice Breaking Sessions',
-                location: 'Department-wise Activity Areas'
-            }
-        ],
-        day2: [
-            {
-                time: '9:30 AM - 11:00 AM',
-                title: 'University Tour',
-                location: 'Campus Grounds'
-            },
-            {
-                time: '11:30 AM - 1:00 PM',
-                title: 'Department Introduction',
-                location: 'Respective Departments'
-            },
-            {
-                time: '1:00 PM - 2:00 PM',
-                title: 'Lunch Break',
-                location: 'University Cafeteria'
-            },
-            {
-                time: '2:30 PM - 4:30 PM',
-                title: 'Industry Expert Talk',
-                location: 'Seminar Hall'
-            },
-            {
-                time: '5:00 PM - 7:00 PM',
-                title: 'Cultural Activities',
-                location: 'Central Lawn'
-            }
-        ],
-        day3: [
-            {
-                time: '9:30 AM - 11:30 AM',
-                title: 'Workshop: Career Planning',
-                location: 'Lecture Hall 1'
-            },
-            {
-                time: '12:00 PM - 1:30 PM',
-                title: 'Alumni Interaction',
-                location: 'Seminar Hall'
-            },
-            {
-                time: '1:30 PM - 2:30 PM',
-                title: 'Lunch Break',
-                location: 'University Cafeteria'
-            },
-            {
-                time: '3:00 PM - 6:00 PM',
-                title: 'Sports & Games',
-                location: 'Sports Complex'
-            }
-        ],
-        day4: [
-            {
-                time: '9:30 AM - 12:30 PM',
-                title: 'Technical Workshop',
-                location: 'Computer Labs'
-            },
-            {
-                time: '12:30 PM - 1:30 PM',
-                title: 'Lunch Break',
-                location: 'University Cafeteria'
-            },
-            {
-                time: '2:00 PM - 4:00 PM',
-                title: 'Entrepreneurship Session',
-                location: 'E-Cell Hub'
-            },
-            {
-                time: '4:30 PM - 6:30 PM',
-                title: 'Talent Hunt Preliminaries',
-                location: 'Auditorium'
-            }
-        ],
-        day5: [
-            {
-                time: '10:00 AM - 12:00 PM',
-                title: 'Motivational Talk',
-                location: 'Main Auditorium'
-            },
-            {
-                time: '12:30 PM - 1:30 PM',
-                title: 'Lunch Break',
-                location: 'University Cafeteria'
-            },
-            {
-                time: '2:00 PM - 5:00 PM',
-                title: 'Cultural Night & Talent Hunt Finals',
-                location: 'Main Auditorium'
-            },
-            {
-                time: '5:30 PM - 7:00 PM',
-                title: 'Closing Ceremony',
-                location: 'Main Auditorium'
-            }
-        ]
-    };
-    
-    // Function to create schedule HTML
-    function createScheduleHTML(day) {
-        const scheduleItems = scheduleData[day];
-        let html = '';
-        
-        scheduleItems.forEach(item => {
-            html += `
-                <div class="schedule-item">
-                    <div class="time">${item.time}</div>
-                    <div class="event-details">
-                        <h3>${item.title}</h3>
-                        <p>${item.location}</p>
-                    </div>
-                </div>
-            `;
-        });
-        
-        return html;
+    // Reset all states
+    tunnelContainer.classList.remove('hide');
+    loadingScreen.classList.remove('show', 'fade-out');
+    loadingScreen.style.display = 'block';
+    mainContent.classList.remove('show');
+
+    // Small delay before restarting
+    setTimeout(startTunnelJourney, 100);
+}
+
+// Auto-start when page loads
+window.addEventListener('load', startTunnelJourney);
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+        e.preventDefault();
+        restartJourney();
     }
+});
+
+// Add some dynamic sound effects simulation through visual feedback
+setInterval(() => {
+    const character = document.querySelector('.character-body');
+    if (character && !document.getElementById('loading-screen').classList.contains('show')) {
+        character.style.transform = `scale(${1 + Math.random() * 0.1})`;
+    }
+}, 100);
+
+// Loading screen interactive effects
+document.addEventListener('mousemove', (e) => {
+    const glitchElements = document.querySelectorAll('.glitch');
+    glitchElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+            element.style.filter = 'hue-rotate(' + (x / rect.width * 360) + 'deg)';
+        }
+    });
+});
+
+// Rest of your existing JavaScript code...
+
+window.aarambhaAnimatorConfig = {
+    enableParallax: false,
+    enableVideoTriggers: false,
+    enableNavbarEffects: false
+};
+
+// VIDEO POPUP FUNCTIONALITY
+function openPopup(videoSrc) {
+    const popup = document.getElementById("videoPopup");
+    const popupVideo = document.getElementById("popupVideo");
+    popup.style.display = "flex";
+    popupVideo.src = videoSrc;
+}
+
+function closePopup() {
+    const popup = document.getElementById("videoPopup");
+    const popupVideo = document.getElementById("popupVideo");
+    popup.style.display = "none";
+    popupVideo.pause();
+    popupVideo.src = "";
+}
+
+// Schedule Tabs
+const scheduleData = {
+    day1: [
+        {time: '9:00 AM - 10:30 AM', title: 'Registration & Welcome Kit Distribution', location: 'Main Auditorium'},
+        {time: '11:00 AM - 12:30 PM', title: 'Inaugural Ceremony', location: 'Main Auditorium'},
+        {time: '1:30 PM - 2:30 PM', title: 'Lunch Break', location: 'University Cafeteria'},
+        {time: '3:00 PM - 5:00 PM', title: 'Ice Breaking Sessions', location: 'Department-wise Activity Areas'}
+    ],
+    day2: [
+        {time: '9:30 AM - 11:00 AM', title: 'University Tour', location: 'Campus Grounds'},
+        {time: '11:30 AM - 1:00 PM', title: 'Department Introduction', location: 'Respective Departments'},
+        {time: '1:00 PM - 2:00 PM', title: 'Lunch Break', location: 'University Cafeteria'},
+        {time: '2:30 PM - 4:30 PM', title: 'Industry Expert Talk', location: 'Seminar Hall'},
+        {time: '5:00 PM - 7:00 PM', title: 'Cultural Activities', location: 'Central Lawn'}
+    ],
+    day3: [
+        {time: '9:30 AM - 11:30 AM', title: 'Workshop: Career Planning', location: 'Lecture Hall 1'},
+        {time: '12:00 PM - 1:30 PM', title: 'Alumni Interaction', location: 'Seminar Hall'},
+        {time: '1:30 PM - 2:30 PM', title: 'Lunch Break', location: 'University Cafeteria'},
+        {time: '3:00 PM - 6:00 PM', title: 'Sports & Games', location: 'Sports Complex'}
+    ],
+    day4: [
+        {time: '9:30 AM - 12:30 PM', title: 'Technical Workshop', location: 'Computer Labs'},
+        {time: '12:30 PM - 1:30 PM', title: 'Lunch Break', location: 'University Cafeteria'},
+        {time: '2:00 PM - 4:00 PM', title: 'Entrepreneurship Session', location: 'E-Cell Hub'},
+        {time: '4:30 PM - 6:30 PM', title: 'Talent Hunt Preliminaries', location: 'Auditorium'}
+    ],
+    day5: [
+        {time: '10:00 AM - 12:00 PM', title: 'Motivational Talk', location: 'Main Auditorium'},
+        {time: '12:30 PM - 1:30 PM', title: 'Lunch Break', location: 'University Cafeteria'},
+        {time: '2:00 PM - 5:00 PM', title: 'Cultural Night & Talent Hunt Finals', location: 'Main Auditorium'},
+        {time: '5:30 PM - 7:00 PM', title: 'Closing Ceremony', location: 'Main Auditorium'}
+    ]
+};
+
+function createScheduleHTML(day) {
+    const scheduleItems = scheduleData[day];
+    let html = '';
+    
+    scheduleItems.forEach(item => {
+        html += `
+            <div class="schedule-item">
+                <div class="time">${item.time}</div>
+                <div class="event-details">
+                    <h3>${item.title}</h3>
+                    <p>${item.location}</p>
+                </div>
+            </div>
+        `;
+    });
+    
+    return html;
+}
+
+// Initialize schedule tabs when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
     
     // Initially load day 1 schedule
     const day1Content = document.getElementById('day1');
@@ -291,24 +368,17 @@ function closePopup() {
     if (tabBtns.length > 0) {
         tabBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all buttons
                 tabBtns.forEach(b => b.classList.remove('active'));
-                
-                // Add active class to clicked button
                 this.classList.add('active');
                 
-                // Get the day data attribute
                 const day = this.getAttribute('data-day');
                 
-                // Hide all tab panes
                 document.querySelectorAll('.tab-pane').forEach(pane => {
                     pane.classList.remove('active');
                 });
                 
-                // Show the selected tab pane
                 const tabPane = document.getElementById(day);
                 if (!tabPane) {
-                    // Create tab pane if it doesn't exist
                     const newPane = document.createElement('div');
                     newPane.id = day;
                     newPane.className = 'tab-pane active';
@@ -316,7 +386,6 @@ function closePopup() {
                     document.querySelector('.tab-content').appendChild(newPane);
                 } else {
                     tabPane.classList.add('active');
-                    // Update content if it's empty
                     if (tabPane.innerHTML.trim() === '') {
                         tabPane.innerHTML = createScheduleHTML(day);
                     }
@@ -325,71 +394,71 @@ function closePopup() {
         });
     }
 
-window.onload = () => {
-  const gallery = document.querySelector(".gallery-grid");
-  const images = Array.from(gallery.children);
+    // Gallery initialization
+    const gallery = document.querySelector(".gallery-grid");
+    if (gallery) {
+        const images = Array.from(gallery.children);
+        images.forEach((img) => {
+            const clone = img.cloneNode(true);
+            gallery.appendChild(clone);
+        });
+    }
 
-  // Clone all images to allow infinite scroll
-  images.forEach((img) => {
-    const clone = img.cloneNode(true);
-    gallery.appendChild(clone);
-  });
-};
+    // Countdown timer
+    function updateCountdown() {
+        const targetDate = new Date('July 25, 2025 00:00:00').getTime();
+        
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-function updateCountdown() {
-    const targetDate = new Date('July 25, 2025 00:00:00').getTime();
-    
-    const updateTimer = () => {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
 
-        document.getElementById('days').textContent = days.toString().padStart(2, '0');
-        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+            if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+            if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+            if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
 
-        if (distance < 0) {
-            clearInterval(timerInterval);
-            document.querySelector('.countdown').innerHTML = '<h2>Event Started!</h2>';
-        }
-    };
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                const countdown = document.querySelector('.countdown');
+                if (countdown) {
+                    countdown.innerHTML = '<h2>Event Started!</h2>';
+                }
+            }
+        };
 
-    updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
-}
+        updateTimer();
+        const timerInterval = setInterval(updateTimer, 1000);
+    }
 
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', updateCountdown);
+    updateCountdown();
 
-
-// Mobile-optimized JavaScript functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    
     // Mobile Menu Toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const navbar = document.querySelector('.navbar');
     
     if (mobileMenuToggle && navLinks) {
-        // Stop event propagation on the menu itself
         navLinks.addEventListener('click', (e) => {
             e.stopPropagation();
         });
 
         mobileMenuToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent document click from immediately closing
+            e.stopPropagation();
             navLinks.classList.toggle('mobile-active');
             mobileMenuToggle.classList.toggle('active');
             document.body.classList.toggle('menu-open');
         });
 
-        // Close mobile menu when clicking on a link
         const navLinksItems = document.querySelectorAll('.nav-links a');
         navLinksItems.forEach(link => {
             link.addEventListener('click', () => {
@@ -399,7 +468,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Close mobile menu when clicking outside
         document.addEventListener('click', (event) => {
             if (navLinks.classList.contains('mobile-active') && !navbar.contains(event.target)) {
                 navLinks.classList.remove('mobile-active');
@@ -428,240 +496,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-    // Touch-friendly video popup for mobile
-    const videos = document.querySelectorAll('.video-row video');
-    const popup = document.querySelector('.popup');
-    const popupVideo = document.querySelector('.popup-content video');
-    const closeBtn = document.querySelector('.close');
-
-    videos.forEach(video => {
-        video.addEventListener('click', function() {
-            if (popup && popupVideo) {
-                popupVideo.src = this.src;
-                popup.style.display = 'flex';
-                // Pause all other videos
-                videos.forEach(v => v.pause());
-            }
-        });
-    });
-
-    if (closeBtn && popup) {
-        closeBtn.addEventListener('click', function() {
-            popup.style.display = 'none';
-            if (popupVideo) {
-                popupVideo.pause();
-            }
-        });
-
-        // Close popup when clicking outside
-        popup.addEventListener('click', function(e) {
-            if (e.target === popup) {
-                popup.style.display = 'none';
-                if (popupVideo) {
-                    popupVideo.pause();
-                }
-            }
-        });
-    }
-
-    // Touch-friendly gallery lightbox
-    const galleryItems = document.querySelectorAll('.gallery-item img');
-    const lightbox = document.querySelector('.lightbox');
-    const lightboxImg = document.querySelector('.lightbox img');
-    const closeLightbox = document.querySelector('.close-lightbox');
-
-    galleryItems.forEach(img => {
-        img.addEventListener('click', function() {
-            if (lightbox && lightboxImg) {
-                lightboxImg.src = this.src;
-                lightbox.style.display = 'flex';
-            }
-        });
-    });
-
-    if (closeLightbox && lightbox) {
-        closeLightbox.addEventListener('click', function() {
-            lightbox.style.display = 'none';
-        });
-
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox) {
-                lightbox.style.display = 'none';
-            }
-        });
-    }
-
-    // Countdown Timer (Mobile optimized)
-    function updateCountdown() {
-        const eventDate = new Date('2024-12-31T23:59:59'); // Replace with your event date
-        const now = new Date();
-        const difference = eventDate - now;
-
-        if (difference > 0) {
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            const countdownElements = {
-                days: document.querySelector('.countdown-box:nth-child(1) span:first-child'),
-                hours: document.querySelector('.countdown-box:nth-child(2) span:first-child'),
-                minutes: document.querySelector('.countdown-box:nth-child(3) span:first-child'),
-                seconds: document.querySelector('.countdown-box:nth-child(4) span:first-child')
-            };
-
-            if (countdownElements.days) countdownElements.days.textContent = days;
-            if (countdownElements.hours) countdownElements.hours.textContent = hours;
-            if (countdownElements.minutes) countdownElements.minutes.textContent = minutes;
-            if (countdownElements.seconds) countdownElements.seconds.textContent = seconds;
-        }
-    }
-
-    // Update countdown every second
-    setInterval(updateCountdown, 1000);
-    updateCountdown(); // Run immediately
-
-    // Handle tab switching on mobile
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-
-    tabBtns.forEach((btn, index) => {
-        btn.addEventListener('click', function() {
-            // Remove active class from all tabs and panes
-            tabBtns.forEach(tab => tab.classList.remove('active'));
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-
-            // Add active class to clicked tab and corresponding pane
-            this.classList.add('active');
-            if (tabPanes[index]) {
-                tabPanes[index].classList.add('active');
-            }
-        });
-    });
-
-    // Gallery filters for mobile
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const galleryItemsAll = document.querySelectorAll('.gallery-item');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
-            
-            // Update active button
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-
-            // Filter gallery items
-            galleryItemsAll.forEach(item => {
-                if (filter === 'all' || item.classList.contains(filter)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    });
-
-   
-
-    // Prevent menu body scroll when mobile menu is open
-    const style = document.createElement('style');
-    style.textContent = `
-        body.menu-open {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Handle orientation change
-    window.addEventListener('orientationchange', function() {
-        // Close mobile menu on orientation change
-        if (navLinks && navLinks.classList.contains('mobile-active')) {
-            navLinks.classList.remove('mobile-active');
-            mobileMenuToggle.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        }
-        
-        // Refresh layout after orientation change
-        setTimeout(() => {
-            window.scrollTo(window.scrollX, window.scrollY);
-        }, 500);
-    });
-
-    // Touch gesture support for gallery
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    if (lightbox) {
-        lightbox.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        });
-
-        lightbox.addEventListener('touchend', function(e) {
-            const touchEndX = e.changedTouches[0].clientX;
-            const touchEndY = e.changedTouches[0].clientY;
-            const diffX = touchStartX - touchEndX;
-            const diffY = touchStartY - touchEndY;
-
-            // Close lightbox on swipe down
-            if (Math.abs(diffY) > Math.abs(diffX) && diffY < -50) {
-                lightbox.style.display = 'none';
-            }
-        });
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Performance optimization: Lazy loading for images
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    }
 });
 
-// Utility function to detect mobile device
+// Utility functions
 function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 }
 
-// Utility function to handle viewport height on mobile
 function setVH() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-// Set initial viewport height
 setVH();
-
-// Update on resize and orientation change
 window.addEventListener('resize', setVH);
 window.addEventListener('orientationchange', () => {
     setTimeout(setVH, 500);
