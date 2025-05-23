@@ -1858,7 +1858,7 @@ body, html {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #461e11;
+    background-color: #5E072B;
     color: white;
     border: none;
     border-radius: 50%;
@@ -1873,7 +1873,7 @@ body, html {
 }
 
 .back-to-top:hover {
-    background-color: #ba401f;
+    background-color: #d2ae37;
     transform: translateY(-2px);
 }
 
