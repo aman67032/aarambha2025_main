@@ -200,15 +200,15 @@ window.addEventListener('orientationchange', () => {
 
 // Tunnel Animation Code - Updated for slower tunnel and extended loading screen
 const imageUrls = [
-    './assets/images/photo1.webp',
-    './assets/images/photo2.webp',
-    './assets/images/photo3.webp',
-    './assets/images/photo4.webp',
-    './assets/images/photo5.webp',
-    './assets/images/photo6.webp',
-    './assets/images/photo7.webp',
-    './assets/images/photo8.webp',
-    './assets/images/photo9.webp'
+    'assests/images/photo1.webp',
+    'assests/images/photo2.webp',
+    'assests/images/photo3.webp',
+    'assests/images/photo4.webp',
+    'assests/images/photo5.webp',
+    'assests/images/photo6.webp',
+    'assests/images/photo7.webp',
+    'assests/images/photo8.webp',
+    'assests/images/photo9.webp'
 ];
 
 function createTunnelRings() {
@@ -579,3 +579,33 @@ function updateCountdown() {
 }
 
 updateCountdown();
+
+
+style.textContent = `
+    @keyframes particleFlyNoRotate {
+        0% {
+            transform: translateZ(-1000px) scale(0);
+            opacity: 0;
+        }
+        15% {
+            opacity: 1;
+        }
+        85% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateZ(1000px) scale(1.5);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Call tunnel and particle effects
+document.addEventListener("DOMContentLoaded", () => {
+    createTunnelRings();
+    createParticleSystem();
+});
+
+
+
