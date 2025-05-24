@@ -199,18 +199,20 @@ window.addEventListener('orientationchange', () => {
 });
 
 // Tunnel Animation Code - Updated for slower tunnel and extended loading screen
+const baseUrl = 'https://github.com/aman67032/aarambha2025_main';
 const imageUrls = [
-    './assests/images/photo1.webp',
-    './assests/images/photo2.webp',
-    './assests/images/photo3.webp',
-    './assests/images/photo4.webp',
-    './assests/images/photo5.webp',
-    './assests/images/photo6.webp',
-    './assests/images/photo7.webp',
-    './assests/images/photo8.webp',
-    './assests/images/photo9.webp'
+    `${baseUrl}assests/images/photo1.webp`,
+    `${baseUrl}assests/images/photo2.webp`,
+    `${baseUrl}assests/images/photo3.webp`,
+    `${baseUrl}assests/images/photo4.webp`,
+    `${baseUrl}assests/images/photo5.webp`,
+    `${baseUrl}assests/images/photo6.webp`,
+    `${baseUrl}assests/images/photo7.webp`,
+    `${baseUrl}assests/images/photo8.webp`,
+    `${baseUrl}assests/images/photo9.webp`
+    
+    // ... etc
 ];
-
 
 function createTunnelRings() {
     const tunnel = document.getElementById('tunnel');
