@@ -199,6 +199,7 @@ window.addEventListener('orientationchange', () => {
 });
 
 // Tunnel Animation Code - Updated for slower tunnel and extended loading screen
+const baseUrl = 'https://github.com/aman67032/aarambha2025_main';
 const imageUrls = [
     'assests/images/photo1.webp',
     'assests/images/photo2.webp',
