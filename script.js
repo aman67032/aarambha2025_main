@@ -200,15 +200,15 @@ window.addEventListener('orientationchange', () => {
 
 // Tunnel Animation Code - Updated for slower tunnel and extended loading screen
 const imageUrls = [
-    'assests/images/photo1.webp',
-    'assests/images/photo2.webp',
-    'assests/images/photo3.webp',
-    'assests/images/photo4.webp',
-    'assests/images/photo5.webp',
-    'assests/images/photo6.webp',
-    'assests/images/photo7.webp',
-    'assests/images/photo8.webp',
-    'assests/images/photo9.webp'
+    './assets/images/photo1.webp',
+    './assets/images/photo2.webp',
+    './assets/images/photo3.webp',
+    './assets/images/photo4.webp',
+    './assets/images/photo5.webp',
+    './assets/images/photo6.webp',
+    './assets/images/photo7.webp',
+    './assets/images/photo8.webp',
+    './assets/images/photo9.webp'
 ];
 
 function createTunnelRings() {
