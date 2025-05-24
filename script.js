@@ -200,15 +200,15 @@ window.addEventListener('orientationchange', () => {
 
 // Tunnel Animation Code - Updated for slower tunnel and extended loading screen
 const imageUrls = [
-    'assests/images/photo1.webp',
-    'assests/images/photo2.webp',
-    'assests/images/photo3.webp',
-    'assests/images/photo4.webp',
-    'assests/images/photo5.webp',
-    'assests/images/photo6.webp',
-    'assests/images/photo7.webp',
-    'assests/images/photo8.webp',
-    'assests/images/photo9.webp'
+    './assests/images/photo1.webp',
+    './assests/images/photo2.webp',
+    './assests/images/photo3.webp',
+    './assests/images/photo4.webp',
+    './assests/images/photo5.webp',
+    './assests/images/photo6.webp',
+    './assests/images/photo7.webp',
+    './assests/images/photo8.webp',
+    './assests/images/photo9.webp'
 ];
 
 
